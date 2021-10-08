@@ -32,7 +32,7 @@ WHITE = 85
 threshold = (BLACK + WHITE) / 2
 
 # Set the drive speed at 100 millimeters per second.
-DRIVE_SPEED = 100
+DRIVE_SPEED = 125
 
 # Set the gain of the proportional line controller. This means that for every
 # percentage point of light deviating from the threshold, we set the turn
@@ -40,7 +40,7 @@ DRIVE_SPEED = 100
 
 # For example, if the light value deviates from the threshold by 10, the robot
 # steers at 10*1.2 = 12 degrees per second.
-PROPORTIONAL_GAIN = 1.2
+PROPORTIONAL_GAIN = 2.2
 
 # Start following the line endlessly.
 while True:
