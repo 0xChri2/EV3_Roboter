@@ -15,6 +15,7 @@ from pybricks.ev3devices import Motor, ColorSensor
 from pybricks.parameters import Port
 from pybricks.tools import wait
 from pybricks.robotics import DriveBase
+from pybricks import ev3brick as brick
 
 # Initialize the motors.
 left_motor = Motor(Port.B)
@@ -25,11 +26,6 @@ line_sensor = ColorSensor(Port.S3)
 
 # Initialize the drive base.
 robot = DriveBase(left_motor, right_motor, wheel_diameter=55.5, axle_track=104)
-
-# Calculate the light threshold. Choose values based on your measurements.
-BLACK = 9
-WHITE = 85
-threshold = (BLACK + WHITE) / 2
 
 # Set the drive speed at 100 millimeters per second.
 DRIVE_SPEED = 125
@@ -42,15 +38,25 @@ DRIVE_SPEED = 125
 # steers at 10*1.2 = 12 degrees per second.
 PROPORTIONAL_GAIN = 2.2
 
+runs = 0
+
 # Start following the line endlessly.
 while True:
-    # Calculate the deviation from the threshold.
-    deviation = line_sensor.reflection() - threshold
+    runs += 1
+    if runs > 10:
+        #Ausgabe von Turn_rate
+        brick.display.clear()
+        brick.display.text(line_sensor.reflection(),(20,20))
+        runs = 0
 
-    # Calculate the turn rate.
-    turn_rate = PROPORTIONAL_GAIN * deviation
+    #calculate turn_rate 
+    if(line_sensor.reflection() <= 10):
+        turn_rate = line_sensor.reflection() * PROPORTIONAL_GAIN
 
+    if(line_sensor.reflection() >= 10):
+        turn_rate = -line_sensor.reflection() * PROPORTIONAL_GAIN
     # Set the drive base speed and turn rate.
+    #robot.drive(DRIVE_SPEED, 0)
     robot.drive(DRIVE_SPEED, turn_rate)
 
     # You can wait for a short time or do other things in this loop.
