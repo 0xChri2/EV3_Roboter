@@ -23,7 +23,7 @@ right_motor = Motor(Port.C)
 
 # Initialize the color sensor.
 line_sensor = ColorSensor(Port.S3)
-ultrasonicsensor = UltrasonicSensor(Port.S2)
+#ultrasonicsensor = UltrasonicSensor(Port.S2)
 # Initialize the drive base.
 robot = DriveBase(left_motor, right_motor, wheel_diameter=55.5, axle_track=104)
 
@@ -51,21 +51,21 @@ while True:
 
     #calculate turn_rate 
     if(line_sensor.reflection() <= 10):
-        turn_rate = line_sensor.reflection() * PROPORTIONAL_GAIN
+       turn_rate = line_sensor.reflection() * PROPORTIONAL_GAIN
 
     if(line_sensor.reflection() >= 10):
         turn_rate = -line_sensor.reflection() * PROPORTIONAL_GAIN
 
      #Ultrasonic sensor 
-    if(ultrasonicsensor.distance() <= 100):
-        DRIVE_SPEED = 0
-        trun_rate = 0
+    #if(ultrasonicsensor.distance() <= 100):
+        #DRIVE_SPEED = 0
+        #trun_rate = 0
 
         
 
     # Set the drive base speed and turn rate.
     robot.drive(DRIVE_SPEED, turn_rate)
-
+    
    
 
     # You can wait for a short time or do other things in this loop.
